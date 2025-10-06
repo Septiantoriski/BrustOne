@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrustOne Wallet - Profil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1C9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="toast-container" id="toast-container"></div>
+    <main class="profile-shell">
+      <header class="profile-header">
+        <div class="avatar" id="profile-avatar">BR</div>
+        <div class="profile-meta">
+          <h1 id="profile-name">Brust Explorer</h1>
+          <p class="text-muted" id="profile-email">explorer@brustone.id</p>
+          <div class="badge"><i class="fa-solid fa-shield"></i> Tier Platinum</div>
+        </div>
+        <div class="profile-actions">
+          <a href="dashboard.html" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+          <button class="btn" onclick="saveProfile()"><i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan</button>
+        </div>
+      </header>
+
+      <section class="profile-grid">
+        <article class="profile-card">
+          <h2>Informasi Akun</h2>
+          <form id="profile-form">
+            <div class="form-row">
+              <label>
+                Nama lengkap
+                <input type="text" id="full-name" placeholder="Nama lengkap" required />
+              </label>
+              <label>
+                Nama panggilan
+                <input type="text" id="nickname" placeholder="Nama panggilan" />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Email utama
+                <input type="email" id="account-email" placeholder="nama@email.com" required />
+              </label>
+              <label>
+                Nomor ponsel
+                <input type="tel" id="phone" placeholder="08xxxxxxxxxx" />
+              </label>
+            </div>
+            <label>
+              Domisili
+              <input type="text" id="location" placeholder="Jakarta, Indonesia" />
+            </label>
+            <label>
+              Bio singkat
+              <textarea id="bio" placeholder="Ceritakan sedikit tentang dirimu"></textarea>
+            </label>
+          </form>
+        </article>
+
+        <article class="profile-card">
+          <h2>Keamanan &amp; Preferensi</h2>
+          <form id="security-form">
+            <label>
+              Mode keamanan
+              <select id="security-level">
+                <option value="standard">Standard - PIN &amp; Password</option>
+                <option value="advance">Advance - Face ID &amp; PIN dinamis</option>
+                <option value="guardian">Guardian - Hardware key + Biometrik</option>
+              </select>
+            </label>
+            <label>
+              Aktivasi notifikasi
+              <select id="notification-preference">
+                <option value="push">Push &amp; Email</option>
+                <option value="push-only">Push saja</option>
+                <option value="email">Email berkala</option>
+              </select>
+            </label>
+            <label>
+              Batas transaksi harian (IDR)
+              <input type="number" id="daily-limit" min="0" step="100000" value="5000000" />
+            </label>
+            <div class="glass-card" style="padding: 1.2rem">
+              <h3 style="margin-bottom: 0.5rem">Integrasi Midtrans</h3>
+              <p class="text-muted" style="font-size: 0.85rem">
+                Status: <span id="midtrans-profile-status">Tersambung</span><br />
+                Client Key: <code id="midtrans-client-key">MIDTRANS_CLIENT_KEY</code>
+              </p>
+              <button type="button" class="btn btn-ghost" onclick="showToast('info', 'API Key aman', 'Kunci rahasia hanya disimpan pada server internal BrustOne.')">
+                <i class="fa-solid fa-key"></i>
+                Kelola API Key
+              </button>
+            </div>
+          </form>
+        </article>
+
+        <article class="profile-card">
+          <h2>Perangkat Tersambung</h2>
+          <div id="device-list" style="display: grid; gap: 1rem"></div>
+          <button class="btn btn-ghost" onclick="registerDevice()">
+            <i class="fa-solid fa-laptop"></i>
+            Tambah perangkat baru
+          </button>
+        </article>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+    <script src="js/profile.js" defer></script>
+  </body>
+</html>

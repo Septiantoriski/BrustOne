@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrustOne Wallet - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1C9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script
+      src="https://app.midtrans.com/snap/snap.js"
+      data-client-key="MIDTRANS_CLIENT_KEY"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div class="toast-container" id="toast-container"></div>
+    <div class="dashboard-shell">
+      <aside class="sidebar">
+        <div class="logo">
+          <i class="fa-solid fa-gem"></i>
+          BrustOne
+        </div>
+        <nav class="nav-links">
+          <a href="dashboard.html" class="active"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+          <a href="profile.html"><i class="fa-regular fa-user"></i> Profil</a>
+          <a href="#" onclick="showToast('info', 'Fitur akan hadir', 'Marketplace BrustPay segera tersedia.'); return false;"><i class="fa-solid fa-store"></i> Marketplace</a>
+          <a href="#" onclick="showToast('info', 'Segera hadir', 'Integrasi kartu debit BrustOne dalam tahap uji coba.'); return false;"><i class="fa-regular fa-credit-card"></i> Kartu Brust</a>
+        </nav>
+        <div style="margin-top: auto; display: grid; gap: 1rem">
+          <div class="glass-card" style="padding: 1.2rem">
+            <p class="text-muted" style="font-size: 0.8rem">Total aset BrustCoin</p>
+            <h3 id="sidebar-balance">BRC 0</h3>
+            <p class="text-muted" id="sidebar-balance-idr">≈ Rp0</p>
+          </div>
+          <button class="btn" onclick="logout()">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Keluar
+          </button>
+        </div>
+      </aside>
+      <main class="dashboard-content">
+        <div class="top-bar">
+          <div>
+            <h1>Halo, <span id="user-name">Explorer</span></h1>
+            <p class="text-muted" id="greeting">Mari maksimalkan BrustCoin kamu hari ini.</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-ghost" onclick="syncRate()">
+              <i class="fa-solid fa-rotate"></i>
+              Sinkron Kurs
+            </button>
+            <button class="btn" onclick="openMidtransTopup()">
+              <i class="fa-solid fa-plus"></i>
+              Top Up BrustCoin
+            </button>
+          </div>
+        </div>
+
+        <section class="wallet-card glass-card">
+          <div class="wallet-balance">
+            <span class="text-muted" style="font-size: 0.85rem">Saldo BrustCoin</span>
+            <span class="value" id="wallet-balance">BRC 0</span>
+            <span class="text-muted" id="wallet-balance-idr">≈ Rp0</span>
+          </div>
+          <div>
+            <span class="text-muted" style="font-size: 0.85rem">Pergerakan 24 jam</span>
+            <h3 id="daily-change" style="margin-top: 0.35rem; color: var(--success)">+3.84%</h3>
+            <p class="text-muted" style="font-size: 0.85rem">Stabil dan siap bertumbuh</p>
+          </div>
+          <div>
+            <span class="text-muted" style="font-size: 0.85rem">Midtrans Status</span>
+            <h3 id="midtrans-status" style="margin-top: 0.35rem">Tersambung</h3>
+            <p class="text-muted" style="font-size: 0.85rem">Pembayaran siap dalam hitungan detik</p>
+          </div>
+        </section>
+
+        <section class="quick-actions">
+          <div class="action-card">
+            <div class="icon-chip"><i class="fa-solid fa-arrow-up-right-dots"></i></div>
+            <h4>Analitik Portofolio</h4>
+            <p class="text-muted">
+              Pantau performa BrustCoin kamu dengan metrik realtime dan smart insight.
+            </p>
+            <button class="btn btn-ghost" onclick="showToast('info', 'Fitur premium', 'Analitik mendalam tersedia di paket Pro.')">
+              Pelajari
+            </button>
+          </div>
+          <div class="action-card">
+            <div class="icon-chip"><i class="fa-solid fa-wallet"></i></div>
+            <h4>Konversi Instan</h4>
+            <p class="text-muted">
+              Tukar BrustCoin ke Rupiah atau sebaliknya menggunakan rate terbaru.
+            </p>
+            <button class="btn btn-ghost" onclick="document.querySelector('#convert-section').scrollIntoView({ behavior: 'smooth' })">
+              Konversi sekarang
+            </button>
+          </div>
+          <div class="action-card">
+            <div class="icon-chip"><i class="fa-solid fa-shield"></i></div>
+            <h4>Keamanan Multi-Layer</h4>
+            <p class="text-muted">
+              Kunci akun dengan 2FA, face unlock, dan deteksi aktivitas tidak wajar.
+            </p>
+            <button class="btn btn-ghost" onclick="showToast('info', 'Aktifkan dari profil', 'Pengaturan keamanan lanjutan tersedia di halaman profil.')">
+              Atur keamanan
+            </button>
+          </div>
+        </section>
+
+        <section class="grid two">
+          <div class="chart-card">
+            <div class="section-title">
+              <div>
+                <h3>Grafik Performa BrustCoin</h3>
+                <p class="text-muted">Harga simulasi 30 hari terakhir</p>
+              </div>
+              <div class="badge"><i class="fa-regular fa-clock"></i> Real-time feed</div>
+            </div>
+            <canvas id="performance-chart" height="160"></canvas>
+          </div>
+          <div class="midtrans-card" id="convert-section">
+            <div class="section-title">
+              <div>
+                <h3>Konversi &amp; Top Up Midtrans</h3>
+                <p class="text-muted">Tukar BRC ↔ IDR dan lanjutkan ke pembayaran</p>
+              </div>
+              <button class="btn btn-ghost" onclick="openMidtransTopup()">
+                <i class="fa-solid fa-credit-card"></i>
+                Top Up
+              </button>
+            </div>
+            <form id="conversion-form">
+              <div>
+                <label for="conversion-mode">Mode</label>
+                <select id="conversion-mode">
+                  <option value="buy">Beli BrustCoin (IDR → BRC)</option>
+                  <option value="sell">Jual BrustCoin (BRC → IDR)</option>
+                </select>
+              </div>
+              <div>
+                <label for="amount">Jumlah</label>
+                <input type="number" id="amount" min="0" step="0.01" value="100000" />
+              </div>
+              <div>
+                <label>Hasil</label>
+                <div class="glass-card" style="padding: 1rem">
+                  <strong id="conversion-result">BRC 6.67</strong>
+                  <p class="text-muted" id="conversion-rate">Rate saat ini 1 BRC = Rp15.000</p>
+                </div>
+              </div>
+              <button type="submit" class="btn">
+                <i class="fa-solid fa-bolt"></i>
+                Proses Transaksi
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section class="transactions-card">
+          <div class="section-title">
+            <div>
+              <h3>Riwayat Transaksi Terakhir</h3>
+              <p class="text-muted">Cek aktivitas dompet kamu</p>
+            </div>
+            <button class="btn btn-ghost" onclick="showToast('info', 'Laporan lengkap', 'Ekspor CSV bisa dilakukan dari menu Laporan Pro.')">
+              Ekspor CSV
+            </button>
+          </div>
+          <table class="transactions-table" id="transactions-table">
+            <thead>
+              <tr>
+                <th>Transaksi</th>
+                <th>Jumlah</th>
+                <th>Status</th>
+                <th>Tanggal</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js" defer></script>
+  </body>
+</html>
